@@ -141,8 +141,8 @@ def time_cutter(time, lth=LTH, div=DIV):
     time_shifts=[]
 
     for i in range(time//lth):
-        time_shifts.append(round_(lth/div))
-    leftover_time_shift=round_((time%lth)/div)
+        time_shifts.append(_round(lth/div))
+    leftover_time_shift=_round((time%lth)/div)
     time_shifts.append(leftover_time_shift) if leftover_time_shift> 0 else None
 
     return time_shifts
