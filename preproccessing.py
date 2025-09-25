@@ -1,7 +1,7 @@
 import os
 import argparse
 import torch
-import torch.nn.functional as fn
+import torch.nn.functional as F
 from random import randint, sample
 from sys import exit
 from vocabulary import *
