@@ -48,7 +48,7 @@ end_token=vocab.index("<end>")
 
 """HELPER FUNCTIONS"""
 
-def event_to_indices(event_list,_vocab=None):
+def events_to_indices(event_list,_vocab=None):
     """convert event_list to list of indices in vocab"""
     if _vocab is None:
         _vocab=vocab
