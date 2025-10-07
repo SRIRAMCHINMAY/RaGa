@@ -135,3 +135,41 @@ Uses relative attention, crucial for long-term musical structure.
 Supports variable-length sequences (melodies, harmonies).
 
 Builds on Transformer architecture, making it expressive and scalable.
+
+
+In abs_positional function
+why are we doing sin and cos for even and odd indices.
+So why?
+
+Why this is useful mathematically
+
+The main reason:
+It lets the model compute relative positions through simple linear operations.
+
+That’s because of trigonometric identities:
+
+sin⁡(a+b)=sin⁡(a)cos⁡(b)+cos⁡(a)sin⁡(b)
+sin(a+b)=sin(a)cos(b)+cos(a)sin(b)
+cos⁡(a+b)=cos⁡(a)cos⁡(b)−sin⁡(a)sin⁡(b)
+cos(a+b)=cos(a)cos(b)−sin(a)sin(b)
+
+Now imagine you have encodings for position pos and pos + k.
+You can express PE(pos + k) as a linear transformation of PE(pos) using these identities.
+
+That means —
+without any recurrence, any extra parameters, or explicit shift information —
+the network can learn how far apart two tokens are just by combining their sin–cos values linearly.
+
+🎹 Intuitive Analogy (why this helps in music/text)
+
+Think of each (sin, cos) pair as a clock hand rotating with a certain speed (frequency).
+
+Some hands rotate quickly → capture short-term patterns (local note transitions)
+
+Some hands rotate slowly → capture long-term patterns (phrase structure)
+
+The phase shift (sin vs cos) ensures each pair encodes a full spatial orientation —
+so the model knows not just how often something repeats (frequency), but also where you are in that cycle (phase).
+
+Without the phase difference, all you’d get are oscillations —
+you wouldn’t know whether two positions are in phase (same pattern alignment) or out of phase (offset).
